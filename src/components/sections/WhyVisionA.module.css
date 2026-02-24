@@ -1,0 +1,138 @@
+.why {
+    background: var(--color-bg);
+}
+
+/* Comparison */
+.comparison {
+    max-width: 800px;
+    margin: 0 auto var(--space-10);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+}
+
+.compHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.compHeaderLeft {
+    padding: 20px 28px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    background: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.compHeaderRight {
+    padding: 20px 28px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-blue);
+    background: rgba(32, 32, 255, 0.04);
+    border-bottom: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+}
+
+.compRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.compRow:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.compLeft {
+    padding: 20px 28px;
+    font-size: 15px;
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(0, 0, 0, 0.2);
+}
+
+.compRight {
+    padding: 20px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text);
+    border-left: 1px solid var(--color-border);
+    background: rgba(32, 32, 255, 0.02);
+}
+
+/* Differentiators */
+.diffGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gap);
+}
+
+.diffCard {
+    text-align: center;
+    padding: 40px 24px;
+    border-radius: var(--radius-xl);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: all 0.4s var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.diffCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(32, 32, 255, 0.1);
+    border-color: rgba(32, 32, 255, 0.2);
+}
+
+.diffStat {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-blue);
+    letter-spacing: -0.02em;
+}
+
+.diffIcon {
+    font-size: 28px;
+}
+
+.diffCard h4 {
+    font-size: 18px;
+}
+
+.diffCard p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 1024px) {
+    .diffGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .diffGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison {
+        border-radius: var(--radius-lg);
+    }
+
+    .compLeft,
+    .compRight,
+    .compHeaderLeft,
+    .compHeaderRight {
+        padding: 16px 18px;
+        font-size: 13px;
+    }
+}

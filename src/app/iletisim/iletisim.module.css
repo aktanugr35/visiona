@@ -1,0 +1,121 @@
+.page {
+    padding-top: 80px;
+}
+
+.hero {
+    background: var(--color-bg-dark);
+    color: white;
+    padding: 100px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.heroGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(32, 32, 255, .15), transparent 70%);
+    pointer-events: none;
+}
+
+.hero h1 {
+    color: white;
+    margin-top: 20px;
+}
+
+.heroDesc {
+    color: rgba(255, 255, 255, .6);
+    font-size: var(--text-body-lg);
+    margin: 20px auto 0;
+    max-width: 480px;
+}
+
+.contactSection {
+    padding: 80px 0 120px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+}
+
+/* Form */
+.formWrap h2 {
+    margin-bottom: 8px;
+}
+
+.formDesc {
+    color: var(--color-text-muted);
+    font-size: 15px;
+    margin-bottom: 32px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.privacy {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: 4px;
+}
+
+.privacy a {
+    color: var(--color-blue);
+    text-decoration: underline;
+}
+
+/* Info */
+.infoWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 48px;
+}
+
+.infoCard {
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: all .3s;
+}
+
+.infoCard:hover {
+    border-color: rgba(32, 32, 255, .2);
+    transform: translateY(-2px);
+}
+
+.infoCard h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.infoCard a,
+.infoCard p {
+    color: var(--color-text-secondary);
+    font-size: 15px;
+}
+
+.infoCard a:hover {
+    color: var(--color-blue);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .infoWrap {
+        padding-top: 0;
+    }
+}

@@ -1,0 +1,836 @@
+/* styles/interactive-hero.css */
+
+/* =============================================
+   TEMEL DURUM — hero aktifken body ayarları
+   ============================================= */
+
+/* Sistem cursor'unu sadece hero canvas üzerinde gizle */
+.ih-scroll-container * {
+    cursor: none;
+}
+
+@media (hover: none) {
+    .ih-scroll-container * {
+        cursor: auto;
+    }
+}
+
+/* =============================================
+   PRELOADER
+   ============================================= */
+.ih-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--color-bg-navy, #050520);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ih-preloader__logo {
+    width: 160px;
+    /* opacity ve scale GSAP tarafından yönetilir */
+}
+
+/* =============================================
+   SCROLL CONTAINER — 500vh
+   ============================================= */
+.ih-scroll-container {
+    height: 500vh;
+    position: relative;
+    /* Canvas arkaplan üstünde, site içeriği altında */
+    z-index: 2;
+}
+
+.ih-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    /* Arkaplan: koyu navy */
+    background: var(--color-bg-navy, #050520);
+    z-index: 2;
+}
+
+/* Canvas: sadece hero scroll bölgesinde görünür */
+#ih-canvas {
+    /* JS ile kontrol — scroll container'ın dışına çıkınca gizle */
+    display: block;
+}
+
+/* =============================================
+   CANVAS ARKAPLAN — CSS katmanı
+   Canvas zaten var ama üzerine mesh gradient ekle
+   ============================================= */
+.ih-sticky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        var(--color-bg-navy, #050520),
+        radial-gradient(ellipse at 15% 20%, rgba(32, 32, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 80%, rgba(0, 40, 200, 0.10) 0%, transparent 50%);
+    /* Not: canvas üstte olduğu için bu gerçekte görünmez ama canvas opacity azalırsa görünür */
+    z-index: -1;
+}
+
+/* Koyu arka plan: ih-sticky background olarak ayarlandı, ::before pseudo-element gerekli değil */
+
+/* =============================================
+   SAHNELER — ORTAK
+   ============================================= */
+.ih-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* opacity GSAP tarafından yönetilir */
+}
+
+/* İlk sahne başlangıçta görünür */
+#ih-scene-1 {
+    opacity: 1;
+}
+
+.ih-scene__inner {
+    width: 100%;
+    max-width: var(--container-max, 1440px);
+    padding: 0 var(--container-padding, clamp(24px, 5vw, 80px));
+}
+
+.ih-scene__inner--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* =============================================
+   SAHNE 1 — HERO İÇERİĞİ
+   ============================================= */
+
+/* Badge — sitenin .badge stilinden türetildi ama dark mod */
+.ih-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1, 8px);
+    background: rgba(32, 32, 255, 0.12);
+    border: 1px solid rgba(32, 32, 255, 0.25);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(140, 140, 255, 0.9);
+    margin-bottom: var(--space-4, 32px);
+    width: fit-content;
+}
+
+.ih-badge__dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-blue, #2020FF);
+    border-radius: 50%;
+    animation: ih-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes ih-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.5);
+    }
+}
+
+/* Hero başlık — --text-hero değişkenini kullan */
+.ih-title {
+    font-family: var(--font-display, 'Clash Display', sans-serif);
+    font-size: var(--text-hero, clamp(64px, 8vw, 120px));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 var(--space-3, 24px);
+}
+
+.ih-title__line {
+    display: block;
+}
+
+/* Gradient metin — --gradient-primary değişkenini kullan */
+.ih-title__line--accent {
+    background: var(--gradient-primary, linear-gradient(135deg, #2020FF 0%, #0040FF 50%, #4444FF 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: ih-gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes ih-gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* aynı class'ı diğer yerlerde de kullan */
+.ih-gradient-text {
+    background: var(--gradient-primary, linear-gradient(135deg, #2020FF 0%, #0040FF 50%, #4444FF 100%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: ih-gradientShift 4s ease-in-out infinite;
+}
+
+/* Subtitle */
+.ih-subtitle {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: var(--text-body, clamp(15px, 1.2vw, 18px));
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 0 var(--space-4, 32px);
+}
+
+/* CTA Buton Grubu */
+.ih-cta-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 16px);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8, 64px);
+}
+
+/* Primary buton — dark mod (mevcut btn-primary'yi override ETMİYOR) */
+.ih-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-blue, #2020FF);
+    color: #ffffff;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--duration-base, 250ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+        box-shadow var(--duration-base, 250ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ih-btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 35%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.12);
+    transform: skewX(-20deg);
+    transition: left var(--duration-slower, 700ms) ease;
+}
+
+.ih-btn-primary:hover::after {
+    left: 120%;
+}
+
+.ih-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(32, 32, 255, 0.4);
+    background: var(--color-blue-light, #4444FF);
+}
+
+.ih-btn-primary--xl {
+    font-size: 17px;
+    padding: 20px 44px;
+}
+
+/* Outline buton — dark mod */
+.ih-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 15px 30px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    text-decoration: none;
+    transition: border-color var(--duration-base, 250ms), color var(--duration-base, 250ms),
+        background var(--duration-base, 250ms);
+}
+
+.ih-btn-outline:hover {
+    border-color: var(--color-blue, #2020FF);
+    color: #ffffff;
+    background: rgba(32, 32, 255, 0.1);
+}
+
+/* İstatistikler */
+.ih-stats {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6, 48px);
+    padding-top: var(--space-4, 32px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ih-stat__divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ih-stat__number {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    line-height: 1;
+}
+
+.ih-stat__suffix,
+.ih-stat__prefix {
+    font-size: 0.6em;
+    color: var(--color-blue, #2020FF);
+}
+
+.ih-stat__label {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+}
+
+/* Scroll ipucu */
+.ih-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.ih-scroll-hint__line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(32, 32, 255, 0.6), transparent);
+    animation: ih-scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes ih-scrollLine {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 1;
+    }
+
+    49% {
+        transform: scaleY(1);
+        transform-origin: top;
+        opacity: 1;
+    }
+
+    50% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
+    }
+}
+
+/* =============================================
+   SAHNE 2 — HİZMETLER
+   ============================================= */
+.ih-section-label {
+    display: block;
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-blue, #2020FF);
+    margin-bottom: var(--space-4, 32px);
+}
+
+.ih-services-list {
+    width: 100%;
+    max-width: 900px;
+}
+
+.ih-service-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 24px);
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.ih-service-item__bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background: linear-gradient(90deg, var(--color-blue, #2020FF), transparent);
+    transition: width 0.6s ease;
+}
+
+.ih-service-item:hover .ih-service-item__bar {
+    width: 100%;
+}
+
+.ih-service-item__num {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 13px;
+    color: var(--color-blue, #2020FF);
+    min-width: 32px;
+    flex-shrink: 0;
+}
+
+.ih-service-item__name {
+    font-family: var(--font-display, 'Clash Display', sans-serif);
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: -0.02em;
+}
+
+/* =============================================
+   SAHNE 3 — MANİFESTO
+   ============================================= */
+.ih-manifesto {
+    font-family: var(--font-display, 'Clash Display', sans-serif);
+    font-size: clamp(36px, 5.5vw, 80px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+}
+
+/* opacity ve transform GSAP ile yönetilir */
+.ih-manifesto-line {
+    color: rgba(255, 255, 255, 0.15);
+    will-change: opacity, transform;
+}
+
+.ih-manifesto-line--accent {
+    color: var(--color-blue-light, #4444FF);
+}
+
+.ih-manifesto-line--muted {
+    font-size: 0.52em;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+/* =============================================
+   SAHNE 4 — SAYILAR
+   ============================================= */
+.ih-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    max-width: 800px;
+    width: 100%;
+    margin-top: var(--space-4, 32px);
+}
+
+.ih-stat-block {
+    padding: 48px 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(32, 32, 255, 0.08);
+    transition: background var(--duration-base, 250ms);
+}
+
+.ih-stat-block:hover {
+    background: rgba(32, 32, 255, 0.06);
+}
+
+.ih-stat-block__number {
+    font-family: var(--font-display, 'Clash Display', sans-serif);
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.ih-stat-block__suffix,
+.ih-stat-block__prefix {
+    font-size: 0.45em;
+    color: var(--color-blue, #2020FF);
+}
+
+.ih-stat-block__label {
+    margin-top: 12px;
+    color: rgba(255, 255, 255, 0.35);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-align: left;
+}
+
+/* =============================================
+   SAHNE 5 — SON CTA
+   ============================================= */
+.ih-cta-eyebrow {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: var(--space-2, 16px);
+}
+
+.ih-cta-title {
+    font-family: var(--font-display, 'Clash Display', sans-serif);
+    font-size: var(--text-h2, clamp(40px, 5vw, 72px));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #ffffff;
+    margin-bottom: var(--space-3, 24px);
+}
+
+.ih-cta-sub {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: var(--text-body, 17px);
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: var(--space-6, 48px);
+}
+
+.ih-social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 16px);
+    margin-top: var(--space-6, 48px);
+    color: rgba(255, 255, 255, 0.45);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 14px;
+}
+
+.ih-social-proof strong {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.ih-avatars {
+    display: flex;
+}
+
+.ih-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-blue, #2020FF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    border: 2px solid var(--color-bg-navy, #050520);
+    margin-left: -8px;
+}
+
+.ih-avatar:first-child {
+    margin-left: 0;
+}
+
+/* =============================================
+   NAVİGASYON
+   ============================================= */
+.ih-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 24px 0;
+    transition: background var(--duration-slow, 400ms), padding var(--duration-base, 250ms);
+}
+
+.ih-navbar--scrolled {
+    background: rgba(5, 5, 32, 0.88);
+    backdrop-filter: blur(24px);
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(32, 32, 255, 0.1);
+}
+
+.ih-navbar__inner {
+    max-width: var(--container-max, 1440px);
+    margin: 0 auto;
+    padding: 0 var(--container-padding, clamp(24px, 5vw, 80px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ih-dot-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ih-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-base, 250ms), transform var(--duration-base, 250ms);
+    padding: 0;
+}
+
+.ih-dot--active {
+    background: var(--color-blue, #2020FF);
+    transform: scale(1.5);
+}
+
+.ih-navbar__cta {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px 22px;
+    border-radius: 100px;
+    transition: border-color var(--duration-base, 250ms), background var(--duration-base, 250ms),
+        color var(--duration-base, 250ms);
+}
+
+.ih-navbar__cta:hover {
+    border-color: var(--color-blue, #2020FF);
+    background: rgba(32, 32, 255, 0.12);
+    color: #ffffff;
+}
+
+/* =============================================
+   ÖZEL CURSOR
+   ============================================= */
+.ih-cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+@media (hover: none) {
+    .ih-cursor {
+        display: none !important;
+    }
+}
+
+.ih-cursor__dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-blue, #2020FF);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width var(--duration-base, 250ms), height var(--duration-base, 250ms);
+}
+
+.ih-cursor__ring {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1.5px solid rgba(32, 32, 255, 0.45);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width var(--duration-slow, 400ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+        height var(--duration-slow, 400ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+        background var(--duration-slow, 400ms);
+}
+
+.ih-cursor--hover .ih-cursor__dot {
+    width: 0;
+    height: 0;
+}
+
+.ih-cursor--hover .ih-cursor__ring {
+    width: 72px;
+    height: 72px;
+    background: rgba(32, 32, 255, 0.07);
+    border-color: rgba(32, 32, 255, 0.7);
+}
+
+/* =============================================
+   GEÇİŞ — HERO KOYU → SİTE AÇIK
+   ============================================= */
+.ih-transition-fade {
+    height: 120px;
+    background: linear-gradient(to bottom,
+            var(--color-bg-navy, #050520) 0%,
+            var(--color-bg, #F5F5F0) 100%);
+    position: relative;
+    z-index: 2;
+    /* Bu element canvas'ı örter ve sitenin geri kalanına yumuşak geçiş sağlar */
+}
+
+/* Canvas: hero scroll bölgesi dışında gizle */
+.ih-canvas-hidden {
+    display: none;
+}
+
+/* =============================================
+   RESPONSİVE
+   ============================================= */
+@media (max-width: 768px) {
+    .ih-title {
+        font-size: clamp(40px, 10vw, 64px);
+    }
+
+    .ih-cta-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .ih-stats {
+        gap: var(--space-4, 32px);
+        flex-wrap: wrap;
+    }
+
+    .ih-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ih-stat-block {
+        padding: 28px 20px;
+    }
+
+    .ih-stat-block__number {
+        font-size: clamp(40px, 10vw, 64px);
+    }
+
+    .ih-service-item__name {
+        font-size: clamp(22px, 6vw, 36px);
+    }
+
+    .ih-manifesto {
+        font-size: clamp(28px, 7vw, 48px);
+    }
+
+    .ih-dot-nav {
+        display: none;
+    }
+
+    /* Mobilde nokta nav gizle */
+    .ih-scroll-hint {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .ih-stats {
+        flex-direction: column;
+        gap: var(--space-2, 16px);
+    }
+
+    .ih-stat__divider {
+        display: none;
+    }
+
+    .ih-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+
+    /* Scroll container'ı normal flow'a çevir */
+    .ih-scroll-container {
+        height: auto;
+    }
+
+    .ih-sticky {
+        position: relative;
+        height: auto;
+        overflow: visible;
+    }
+
+    .ih-scene {
+        position: relative;
+        opacity: 1 !important;
+        height: auto;
+    }
+
+    #ih-scene-2,
+    #ih-scene-3,
+    #ih-scene-4,
+    #ih-scene-5 {
+        display: none;
+        /* Sadece ilk sahne göster */
+    }
+
+    #ih-canvas {
+        display: none;
+    }
+
+    .ih-manifesto-line {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Animasyon sınıfları devre dışı */
+    .ih-badge__dot,
+    .ih-scroll-hint__line,
+    .ih-title__line--accent,
+    .ih-gradient-text {
+        animation: none;
+    }
+}
