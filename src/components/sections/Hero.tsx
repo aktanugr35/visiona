@@ -64,8 +64,8 @@ export default function Hero() {
                     </p>
 
                     <div className={`${styles.cta} animate-in`} data-delay="300">
-                        <a href="/iletisim" className="btn-primary">Hemen Başlayın →</a>
-                        <a href="/projeler" className="btn-outline">Portföyü Gör</a>
+                        <a href="https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" className="btn-primary">Hemen Başlayın →</a>
+                        <a href="#instagram" className="btn-outline">Çalışmalarımız</a>
                     </div>
 
                     <div className={`${styles.stats} animate-in`} data-delay="400" ref={statsRef}>

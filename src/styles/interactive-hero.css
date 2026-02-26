@@ -86,12 +86,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* opacity GSAP tarafından yönetilir */
+    /* Gizli sahneler: visibility + pointer-events ile tamamen devre dışı */
+    visibility: hidden;
+    pointer-events: none;
+    will-change: opacity, transform, visibility;
 }
 
 /* İlk sahne başlangıçta görünür */
 #ih-scene-1 {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .ih-scene__inner {

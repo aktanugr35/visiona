@@ -48,7 +48,7 @@ export default function InteractiveHero() {
                 trigger: container,
                 start: 'top top',
                 end: '20% top',
-                scrub: 1.5,
+                scrub: true,
             }
         })
             .to('#ih-scene-1 .ih-badge', { y: -40, opacity: 0, duration: 0.4 })
@@ -56,8 +56,8 @@ export default function InteractiveHero() {
             .to('#ih-scene-1 .ih-subtitle', { y: -50, opacity: 0, duration: 0.4 }, '<0.2')
             .to('#ih-scene-1 .ih-cta-group', { y: -40, opacity: 0, duration: 0.3 }, '<0.1')
             .to('#ih-scene-1 .ih-stats', { y: -30, opacity: 0, duration: 0.3 }, '<0.1')
-            .to('#ih-scene-1', { opacity: 0, duration: 0.3 }, '-=0.2')
-            .fromTo('#ih-scene-2', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+            .to('#ih-scene-1', { opacity: 0, visibility: 'hidden', pointerEvents: 'none', duration: 0.3 }, '-=0.2')
+            .fromTo('#ih-scene-2', { opacity: 0, y: 50, visibility: 'visible', pointerEvents: 'auto' }, { opacity: 1, y: 0, duration: 0.6, immediateRender: false }, '-=0.3')
 
         // Sahne 2 → 3 geçişi (scroll 20–40%)
         gsap.timeline({
@@ -65,19 +65,19 @@ export default function InteractiveHero() {
                 trigger: container,
                 start: '20% top',
                 end: '40% top',
-                scrub: 1.5,
+                scrub: true,
             }
         })
             .to('#ih-scene-2 .ih-service-item', { x: 60, opacity: 0, duration: 0.5, stagger: 0.08 })
-            .to('#ih-scene-2', { opacity: 0, duration: 0.3 }, '-=0.3')
-            .fromTo('#ih-scene-3', { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.2')
+            .to('#ih-scene-2', { opacity: 0, visibility: 'hidden', pointerEvents: 'none', duration: 0.3 }, '-=0.3')
+            .fromTo('#ih-scene-3', { opacity: 0, visibility: 'visible', pointerEvents: 'auto' }, { opacity: 1, duration: 0.5, immediateRender: false }, '-=0.2')
 
         // Sahne 3 manifesto satırları — scrub ile kelime kelime belirir
         ScrollTrigger.create({
             trigger: container,
             start: '40% top',
             end: '60% top',
-            scrub: 1.2,
+            scrub: true,
             onUpdate: (self) => {
                 const lines = document.querySelectorAll<HTMLElement>('#ih-scene-3 .ih-manifesto-line')
                 lines.forEach((line, i) => {
@@ -94,11 +94,11 @@ export default function InteractiveHero() {
                 trigger: container,
                 start: '58% top',
                 end: '65% top',
-                scrub: 1,
+                scrub: true,
             }
         })
-            .to('#ih-scene-3', { opacity: 0, duration: 0.4 })
-            .fromTo('#ih-scene-4', { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.6 }, '-=0.2')
+            .to('#ih-scene-3', { opacity: 0, visibility: 'hidden', pointerEvents: 'none', duration: 0.4 })
+            .fromTo('#ih-scene-4', { opacity: 0, scale: 0.96, visibility: 'visible', pointerEvents: 'auto' }, { opacity: 1, scale: 1, duration: 0.6, immediateRender: false }, '-=0.2')
 
         // Sahne 4 count-up — bir kez tetiklenir, scrub değil
         ScrollTrigger.create({
@@ -130,11 +130,11 @@ export default function InteractiveHero() {
                 trigger: container,
                 start: '78% top',
                 end: '86% top',
-                scrub: 1,
+                scrub: true,
             }
         })
-            .to('#ih-scene-4', { opacity: 0, duration: 0.4 })
-            .fromTo('#ih-scene-5', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.2')
+            .to('#ih-scene-4', { opacity: 0, visibility: 'hidden', pointerEvents: 'none', duration: 0.4 })
+            .fromTo('#ih-scene-5', { opacity: 0, y: 40, visibility: 'visible', pointerEvents: 'auto' }, { opacity: 1, y: 0, duration: 0.6, immediateRender: false }, '-=0.2')
 
         // Sahne 5 CTA başlığı scale-in
         gsap.fromTo('#ih-scene-5 .ih-cta-title',
@@ -288,7 +288,7 @@ function IHNavbar() {
                     ))}
                 </div>
 
-                <a href="/iletisim" className="ih-navbar__cta">Teklif Al →</a>
+                <a href="https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" className="ih-navbar__cta">Teklif Al →</a>
             </div>
         </nav>
     )

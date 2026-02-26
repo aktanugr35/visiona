@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import ConditionalNavbar from "@/components/layout/ConditionalNavbar";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://visiona.ai'),
+  metadataBase: new URL('https://visiona.tech'),
   title: {
     default: 'visionA — Sosyal Medya AI Ajansı',
     template: '%s | visionA',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://visiona.ai',
+    url: 'https://visiona.tech',
     siteName: 'visionA',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
@@ -46,20 +46,10 @@ export default function RootLayout({
               '@type': 'ProfessionalService',
               name: 'visionA',
               description: 'Sosyal Medya AI Ajansı',
-              url: 'https://visiona.ai',
-              logo: 'https://visiona.ai/logo.png',
+              url: 'https://visiona.tech',
+              logo: 'https://visiona.tech/logo.png',
               serviceType: 'Social Media Marketing',
               areaServed: 'TR',
-              hasOfferCatalog: {
-                '@type': 'OfferCatalog',
-                name: 'Sosyal Medya Hizmetleri',
-                itemListElement: [
-                  { '@type': 'Offer', name: 'AI İçerik Üretimi' },
-                  { '@type': 'Offer', name: 'Sosyal Medya Yönetimi' },
-                  { '@type': 'Offer', name: 'AI Reklam Kreatifleri' },
-                  { '@type': 'Offer', name: 'Strateji & Analitik' },
-                ],
-              },
             }),
           }}
         />

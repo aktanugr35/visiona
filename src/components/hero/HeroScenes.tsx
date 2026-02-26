@@ -31,10 +31,10 @@ export default function HeroScenes() {
 
                     {/* CTA Butonlar */}
                     <div className="ih-cta-group">
-                        <a href="/iletisim" className="ih-btn-primary">
+                        <a href="https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" className="ih-btn-primary">
                             Hemen Başlayın →
                         </a>
-                        <a href="/projeler" className="ih-btn-outline">
+                        <a href="#instagram" className="ih-btn-outline">
                             Portföyü Gör
                         </a>
                     </div>
@@ -158,7 +158,7 @@ export default function HeroScenes() {
                     <p className="ih-cta-sub">
                         İlk görüşme ücretsiz. 48 saat içinde dönüş garantisi.
                     </p>
-                    <a href="/iletisim" className="ih-btn-primary ih-btn-primary--xl">
+                    <a href="https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" className="ih-btn-primary ih-btn-primary--xl">
                         Ücretsiz Teklif Al →
                     </a>
 

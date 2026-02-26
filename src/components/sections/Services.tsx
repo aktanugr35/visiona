@@ -95,7 +95,7 @@ export default function Services() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <a href="/hizmetler" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '8px' }}>
+                                    <a href="https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ alignSelf: 'flex-start', marginTop: '8px' }}>
                                         Detayları Gör →
                                     </a>
                                 </div>

@@ -1,25 +1,32 @@
 import styles from './CTASection.module.css';
 
+const WHATSAPP_URL = 'https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum.';
+
 export default function CTASection() {
     return (
-        <section className={styles.cta}>
-            <div className={styles.bgEffect}></div>
-            <div className={styles.bgEffect2}></div>
-            <div className={`container ${styles.inner}`}>
-                <span className="badge badge--dark">Hazır Mısınız?</span>
-                <h2 className={styles.title}>
-                    Markanızı Büyütmeye<br />
-                    <span className="gradient-text">Bugün Başlayın</span>
-                </h2>
-                <p className={styles.subtitle}>
-                    Ücretsiz keşif görüşmemizle sosyal medya stratejinizi birlikte planlayalım.
-                </p>
-                <div className={styles.buttons}>
-                    <a href="/iletisim" className="btn-primary" style={{ padding: '18px 40px', fontSize: '16px' }}>
-                        Ücretsiz Teklif Alın →
-                    </a>
-                    <a href="/projeler" className="btn-outline btn--dark">
-                        Projelerimizi İnceleyin
+        <section id="iletisim" className={`section section--dark ${styles.cta}`}>
+            <div className={styles.glowOrb}></div>
+            <div className="container">
+                <div className={styles.card}>
+                    <span className="badge badge--dark">İletişim</span>
+                    <h2>Projenizi<br /><span className="gradient-text">Konuşalım</span></h2>
+                    <p>Markanızın dijital varlığını güçlendirmek için hemen bizimle iletişime geçin.</p>
+
+                    <div className={styles.contactGrid}>
+                        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={styles.contactCard}>
+                            <span className={styles.contactIcon}>📱</span>
+                            <span className={styles.contactLabel}>WhatsApp</span>
+                            <span className={styles.contactValue}>0543 679 96 36</span>
+                        </a>
+                        <a href="mailto:uguraktan@visiona.tech" className={styles.contactCard}>
+                            <span className={styles.contactIcon}>✉️</span>
+                            <span className={styles.contactLabel}>E-posta</span>
+                            <span className={styles.contactValue}>uguraktan@visiona.tech</span>
+                        </a>
+                    </div>
+
+                    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '20px 48px', fontSize: '17px', marginTop: '16px' }}>
+                        WhatsApp ile Teklif Al →
                     </a>
                 </div>
             </div>

@@ -4,13 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 
-const navLinks = [
-  { href: '/hizmetler', label: 'Hizmetler' },
-  { href: '/projeler', label: 'Projeler' },
-  { href: '/hakkimizda', label: 'Hakkımızda' },
-  { href: '/fiyatlandirma', label: 'Fiyatlandırma' },
-  { href: '/blog', label: 'Blog' },
-];
+const WHATSAPP_URL = 'https://wa.me/905436799636?text=Merhaba%2C%20teklif%20almak%20istiyorum.';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,6 +27,12 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
+  const scrollToSection = (id: string) => {
+    setMobileOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
@@ -42,17 +42,15 @@ export default function Navbar() {
         </Link>
 
         <div className={styles.navLinks}>
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href} className={styles.navLink}>
-              {link.label}
-            </Link>
-          ))}
+          <button onClick={() => scrollToSection('hizmetler')} className={styles.navLink}>Hizmetler</button>
+          <button onClick={() => scrollToSection('instagram')} className={styles.navLink}>Çalışmalar</button>
+          <button onClick={() => scrollToSection('iletisim')} className={styles.navLink}>İletişim</button>
         </div>
 
         <div className={styles.navActions}>
-          <Link href="/iletisim" className="btn-primary" style={{ padding: '12px 28px', fontSize: '14px' }}>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 28px', fontSize: '14px' }}>
             Teklif Al →
-          </Link>
+          </a>
         </div>
 
         <button
@@ -69,25 +67,19 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ''}`}>
         <div className={styles.mobileMenuInner}>
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.mobileLink}
-              style={{ animationDelay: `${i * 80}ms` }}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/iletisim"
+          <button className={styles.mobileLink} onClick={() => scrollToSection('hizmetler')}>Hizmetler</button>
+          <button className={styles.mobileLink} onClick={() => scrollToSection('instagram')}>Çalışmalar</button>
+          <button className={styles.mobileLink} onClick={() => scrollToSection('iletisim')}>İletişim</button>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary"
-            style={{ marginTop: '24px', width: '100%', textAlign: 'center' }}
+            style={{ marginTop: '24px', width: '100%', textAlign: 'center', display: 'block' }}
             onClick={() => setMobileOpen(false)}
           >
             Teklif Al →
-          </Link>
+          </a>
         </div>
       </div>
     </nav>
